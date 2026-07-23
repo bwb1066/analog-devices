@@ -1,0 +1,32 @@
+# Analog Devices
+
+> Analog Devices, Inc. (ADI) is a global semiconductor company that designs and manufactures analog, mixed-signal, and digital signal processing integrated circuits. This site presents ADI's products, software, and industry solutions, with a homepage feature on power system management (PSM) for 48V data centers.
+
+Together with our customers, we co-create solutions across aerospace and defense, automotive, communications, consumer, energy, industrial automation, and healthcare.
+
+## Main sections
+
+- [Products](https://www.analog.com/en/product-category.html): Full catalog of amplifiers, converters, power management, RF and microwave, sensors, and processors.
+- [Software](https://www.analog.com/en/software.html): Design tools, drivers, and development software.
+- [AI](https://www.analog.com/en/ai.html): Edge AI and machine-learning enablement across ADI's portfolio.
+- [Design Resources](https://www.analog.com/en/resources.html): Reference designs, technical documentation, and evaluation tools.
+- [Solutions](https://www.analog.com/en/solutions.html): Industry solutions for the markets ADI serves.
+- [About Us](https://www.analog.com/en/who-we-are.html): Company information, leadership, and values.
+- [Careers](https://www.analog.com/en/careers.html): Open roles and life at ADI.
+- [Support](https://www.analog.com/en/support.html): Technical support and customer service.
+- [eShop](https://eshop.analog.com/en/app/home): Buy ADI parts and evaluation boards online.
+
+## Industry solutions
+
+- [Data Center](https://www.analog.com/en/solutions.html): Power system management, optical networking, and server equipment for hyperscale infrastructure.
+- [Aerospace & Defense](https://www.analog.com/en/solutions.html): Space technology, avionics, radar, and secure military communications.
+- [Automotive](https://www.analog.com/en/solutions.html): Electrification, in-cabin, and connectivity systems.
+- [Healthcare](https://www.analog.com/en/solutions.html): Clinical and consumer health monitoring.
+
+## Community and support
+
+- [EngineerZone](https://ez.analog.com/): Technical support community and forums.
+- [Analog Dialogue](https://www.analog.com/en/resources/analog-dialogue.html): ADI's technical journal.
+- [ADI Developer Portal](https://developer.analog.com/): Developer tools and documentation.
+- [Wiki](https://wiki.analog.com/): Community engineering wiki.
+- [Contact Us](https://www.analog.com/en/contact-us.html): Reach ADI sales and support.
