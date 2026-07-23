@@ -13,6 +13,9 @@ header.header {
 
   display: block;
   height: auto;
+  /* reserve the decorated height so main doesn't jump when the header fragment
+     loads async (utility strip 36 + nav 75 on desktop) */
+  min-height: 111px;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -269,6 +272,7 @@ header.header .breadcrumbs { display: none; }
 @media (max-width: 1199px) {
   /* Compact bar: hamburger left, logo centred, search + cart right. The utility
      strip and the concierge action move into the panel's territory / drop out. */
+  header.header { min-height: 64px; } /* single compact bar, no utility strip */
   .header .utility-nav { display: none; }
 
   .header .primary-nav > .default-content {

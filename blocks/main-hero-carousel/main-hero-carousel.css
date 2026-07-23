@@ -3,7 +3,9 @@
 .main-hero-carousel {
   --hero-blue: #0a4f9e;
   --hero-navy: #082a4f;
-  --hero-pad: clamp(24px, 8%, 150px);
+  /* mirror the header's --nav-edge so the content's left edge lines up with the
+     primary nav's left edge (the brand logo) at every breakpoint */
+  --hero-pad: 15%;
 
   position: relative;
   overflow: hidden;
@@ -66,7 +68,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 40px var(--hero-pad);
-  max-width: 760px;
+  max-width: calc(760px + var(--hero-pad));
   color: #fff;
 }
 
@@ -167,6 +169,16 @@
   }
 
   .main-hero-carousel .hero-dots { justify-content: center; }
+}
+
+/* --hero-pad tracks the header's --nav-edge: 15% wide, 5% mid, nav-pad on the
+   mobile bar — so the content's left edge stays aligned with the primary nav. */
+@media (max-width: 1799px) {
+  .main-hero-carousel { --hero-pad: 5%; }
+}
+
+@media (max-width: 1199px) {
+  .main-hero-carousel { --hero-pad: clamp(16px, 4vw, 48px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
