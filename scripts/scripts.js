@@ -15,7 +15,9 @@ const locales = {
 const linkBlocks = [
   { fragment: '/fragments/' },
   { schedule: '/schedules/' },
-  { youtube: 'https://www.youtube' },
+  // only actual videos autoblock into an embed — a channel/profile link (e.g. the
+  // footer's social row) must stay a plain link
+  { youtube: 'https://www.youtube.com/watch' },
 ];
 
 // Blocks with self-managed styles

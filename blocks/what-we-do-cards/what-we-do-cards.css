@@ -1,0 +1,83 @@
+/* what-we-do-cards — "Get to Know Us" intro + a row of image/title cards */
+
+.what-we-do-cards {
+  /* Backgrounds here are hardcoded light, so pin the scheme — otherwise
+     light-dark() in --color-text flips the copy to white and it vanishes. */
+  color-scheme: light;
+  box-sizing: border-box;
+  min-height: 475px;
+  padding: clamp(36px, 5vw, 64px) 0;
+  background: #fff; /* full-bleed white */
+}
+
+/* content constrained to the grid; the white bg stays full width */
+.what-we-do-cards .wwd-intro,
+.what-we-do-cards .wwd-cards {
+  max-width: var(--grid-container-width);
+  margin-inline: auto;
+}
+
+/* intro */
+.what-we-do-cards .wwd-intro p:first-of-type {
+  margin: 0 0 16px;
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.15;
+  color: var(--color-text);
+}
+
+.what-we-do-cards .wwd-intro p:first-of-type strong { font-weight: 700; }
+
+.what-we-do-cards .wwd-intro p:nth-of-type(2) {
+  margin: 0 0 clamp(28px, 4vw, 48px);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-text);
+  max-width: 78ch;
+}
+
+/* cards grid */
+.what-we-do-cards .wwd-cards > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.what-we-do-cards .wwd-card {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 22px;
+  background: #f4f5f7;
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: box-shadow 0.2s ease;
+}
+
+.what-we-do-cards .wwd-card:hover { box-shadow: 0 8px 22px rgb(0 0 0 / 12%); }
+
+.what-we-do-cards .wwd-card-media {
+  flex: none;
+  width: clamp(110px, 12vw, 150px);
+}
+
+.what-we-do-cards .wwd-card-media picture,
+.what-we-do-cards .wwd-card-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.what-we-do-cards .wwd-card-title {
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+@media (max-width: 899px) {
+  .what-we-do-cards .wwd-cards > div { grid-template-columns: 1fr; }
+}

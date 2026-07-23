@@ -1,0 +1,434 @@
+/* industry-tabs — tabbed industry explorer with positioned hotspots */
+
+.industry-tabs,
+.industry-tabset {
+  --industry-navy: #082a4f;
+  --industry-cta: #125cac;
+  --industry-accent: #88b6ff;
+}
+
+/* Block wrapper — carries the navy behind the section heading when the tabs are
+   authored as nested tables. The heading is optional. */
+.industry-tabs {
+  color-scheme: light;
+  background: var(--industry-navy);
+  color: #fff;
+  padding-top: clamp(24px, 3.5vw, 48px);
+}
+
+/* The navy is full-bleed, but the content sits on the site grid. */
+.industry-tabs h1,
+.industry-tabs h2,
+.industry-tabs .industry-tabset {
+  width: var(--grid-container-width);
+  margin-inline: auto;
+}
+
+.industry-tabs h1,
+.industry-tabs h2 {
+  margin-block: 0 clamp(12px, 1.6vw, 20px);
+  font-family: var(--heading-font-family, var(--font-family));
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 600;
+  line-height: 1.15;
+  color: #fff;
+}
+
+/* Nested in the block, the wrapper already paints, pads and centres. */
+.industry-tabs .industry-tabset {
+  background: none;
+  padding-top: 0;
+  padding-inline: 0;
+}
+
+.industry-tabset {
+  background: var(--industry-navy);
+  padding: clamp(20px, 3vw, 40px) clamp(16px, 4vw, 48px) clamp(28px, 4vw, 48px);
+  font-family: var(--font-family, arial, sans-serif);
+  color: #fff;
+}
+
+/* ---------- Tab strip (desktop) ---------- */
+.industry-tab-list {
+  display: flex;
+  gap: clamp(16px, 2.6vw, 44px);
+  align-items: stretch;
+  background: transparent;
+  border-bottom: 1px solid rgb(255 255 255 / 22%);
+  margin-bottom: clamp(16px, 2vw, 28px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.industry-tab-list::-webkit-scrollbar { display: none; }
+
+.industry-tab-button {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  color: #cdd8ea;
+  font-family: var(--heading-font-family, barlow, arial, sans-serif);
+  font-weight: 600;
+  font-size: var(--body-font-size-l, 18px);
+  white-space: nowrap;
+  padding: 14px 2px 14px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.industry-tab-button:hover { color: #fff; }
+
+.industry-tab-button.is-active {
+  color: #fff;
+  border-bottom-color: var(--industry-accent);
+}
+
+.industry-tab-button:focus-visible {
+  outline: 2px solid var(--industry-accent);
+  outline-offset: -2px;
+}
+
+/* ---------- Tab dropdown (mobile) ---------- */
+.industry-tab-select-wrap {
+  display: none;
+  position: relative;
+  background: var(--industry-cta);
+}
+
+.industry-tab-select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-70%) rotate(45deg);
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  pointer-events: none;
+}
+
+.industry-tab-select {
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  font-size: var(--body-font-size-l, 18px);
+  padding: 16px clamp(16px, 5vw, 24px);
+  cursor: pointer;
+}
+
+.industry-tab-select:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+
+/* ---------- Panels + media ---------- */
+.industry-tab-panel { position: relative; }
+.industry-tab-panel[hidden] { display: none; }
+
+.industry-tab-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--industry-navy);
+  aspect-ratio: 20 / 11;
+}
+
+.industry-tab-bg,
+.industry-tab-bg picture,
+.industry-tab-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.industry-tab-bg img { object-fit: cover; display: block; }
+
+/* desktop = back image under front image; mobile image hidden here */
+.industry-tab-bg-back { z-index: 1; }
+.industry-tab-bg-front { z-index: 2; }
+.industry-tab-bg-mobile { display: none; }
+
+/* subtle zoom-in each time a tab is activated (applies to every layer) */
+.industry-tab-media.is-zooming .industry-tab-bg img {
+  animation: industry-zoom 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes industry-zoom {
+  from { transform: scale(1.09); }
+  to { transform: scale(1); }
+}
+
+/* ---------- Hotspots (pins on the image) ---------- */
+.industry-tab-hotspots { position: absolute; inset: 0; z-index: 3; }
+
+.industry-tab-hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--color-dark, #1b1b1b);
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 600;
+  font-size: var(--body-font-size-m, 16px);
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 28%);
+  white-space: nowrap;
+  transition: opacity 0.3s ease, transform 0.25s ease, box-shadow 0.2s ease;
+}
+
+.industry-tab-hotspot:hover { transform: translate(-50%, -50%) scale(1.04); }
+
+.industry-tab-hotspot:focus-visible {
+  outline: 3px solid var(--industry-accent);
+  outline-offset: 2px;
+}
+
+.industry-tab-hotspot-num { display: none; }
+
+.industry-tab-hotspot-icon {
+  width: 26px;
+  height: 26px;
+  padding: 4px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: var(--color-blue-100, #eaf2ff);
+  fill: var(--industry-cta);
+  flex: none;
+}
+
+/* when a popup is open, the other pins fade away (desktop) */
+.industry-tab-media.has-popup .industry-tab-hotspot {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Portfolio CTA ---------- */
+.industry-tab-portfolio-wrap {
+  position: absolute;
+  right: clamp(16px, 3vw, 40px);
+  bottom: clamp(16px, 3vw, 40px);
+  z-index: 2;
+}
+
+a.industry-tab-portfolio.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--industry-cta);
+  border: 2px solid var(--industry-cta);
+  color: #fff;
+  font-weight: 700;
+  padding: 14px 22px;
+  text-decoration: none;
+}
+
+a.industry-tab-portfolio.btn::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  flex: none;
+  background: currentcolor;
+  mask: no-repeat center / contain url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 12h15M13 6l6 6-6 6"/></svg>');
+}
+
+a.industry-tab-portfolio.btn:hover { background: var(--color-blue-700, #0041a9); }
+
+.industry-tab-panel:has(.industry-tab-media.has-popup) .industry-tab-portfolio-wrap {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Card (shared: desktop popup + mobile accordion) ---------- */
+.industry-tab-card {
+  background: #fff;
+  color: var(--color-dark, #1b1b1b);
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgb(0 0 0 / 28%);
+}
+
+.industry-tab-card.is-popup {
+  position: absolute;
+  z-index: 4;
+  width: min(360px, 78%);
+  padding: 22px;
+  animation: industry-pop 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes industry-pop {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.industry-tab-card-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: var(--industry-cta);
+  border: 2px solid var(--industry-cta);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.industry-tab-card-close svg { width: 18px; height: 18px; }
+.industry-tab-card-close:hover { background: var(--color-blue-100, #eaf2ff); }
+.industry-tab-card-close:focus-visible { outline: 3px solid var(--industry-accent); outline-offset: 2px; }
+
+.industry-tab-card-media {
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  aspect-ratio: 16 / 9;
+}
+
+.industry-tab-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* leave room for the close button beside the image in the popup */
+.industry-tab-card.is-popup .industry-tab-card-media { width: 72%; }
+
+.industry-tab-card-title {
+  margin: 0 0 10px;
+  font-size: var(--heading-font-size-l, 25.63px);
+  font-weight: 700;
+}
+
+.industry-tab-card-desc {
+  margin: 0 0 18px;
+  font-size: var(--body-font-size-m, 16px);
+  line-height: 1.45;
+  color: var(--color-gray-700, #494949);
+}
+
+a.industry-tab-card-cta.btn {
+  display: inline-block;
+  background: var(--industry-cta);
+  border: 2px solid var(--industry-cta);
+  color: #fff;
+  font-weight: 700;
+  padding: 12px 20px;
+  text-decoration: none;
+}
+
+a.industry-tab-card-cta.btn:hover { background: var(--color-blue-700, #0041a9); }
+
+/* ---------- Accordion (mobile) ----------
+   Only ever rendered below the breakpoint, sitting on the navy panel — so it
+   is styled light-on-dark. */
+.industry-tab-accordion { display: none; }
+
+.industry-tab-accordion-item { border-bottom: 1px solid rgb(255 255 255 / 35%); }
+
+.industry-tab-accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: none;
+  border: 0;
+  padding: 22px clamp(16px, 5vw, 24px);
+  font: inherit;
+  font-size: var(--body-font-size-l, 18px);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.industry-tab-accordion-num { font-weight: 600; color: rgb(255 255 255 / 55%); }
+.industry-tab-accordion-label { flex: 1; font-weight: 600; }
+
+.industry-tab-chevron {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  color: rgb(255 255 255 / 70%);
+  transition: transform 0.25s ease;
+}
+
+.industry-tab-accordion-item.is-open .industry-tab-chevron { transform: rotate(180deg); }
+
+.industry-tab-accordion-panel { display: none; }
+.industry-tab-accordion-item.is-open .industry-tab-accordion-panel {
+  display: block;
+  padding: 0 clamp(16px, 5vw, 24px) 24px;
+}
+
+.industry-tab-accordion .industry-tab-card { box-shadow: none; border-radius: 0; }
+.industry-tab-accordion .industry-tab-card-media { border-radius: 8px; }
+
+/* ---------- Responsive switch ---------- */
+@media (max-width: 899px) {
+  .industry-tab-list { display: none; }
+  .industry-tab-select-wrap { display: block; }
+  .industry-tab-accordion { display: block; }
+
+  .industry-tab-media { aspect-ratio: 3 / 2; }
+
+  /* show the mobile image; hide the desktop back/front layers */
+  .industry-tab-bg-mobile { display: block; }
+  .has-mobile-img .industry-tab-bg-back,
+  .has-mobile-img .industry-tab-bg-front { display: none; }
+
+  /* a dedicated mobile image (numbers baked in): show it uncropped at its own
+     height and drop the rendered pins — the accordion below drives the popups */
+  .industry-tab-media.has-mobile-img { aspect-ratio: auto; }
+  .has-mobile-img .industry-tab-bg-mobile,
+  .has-mobile-img .industry-tab-bg-mobile picture,
+  .has-mobile-img .industry-tab-bg-mobile img { position: static; height: auto; }
+  .has-mobile-img .industry-tab-hotspots { display: none; }
+
+  /* pins become numbered squares; labels move to the list below */
+  .industry-tab-hotspot {
+    gap: 0;
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--industry-navy);
+    color: #fff;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--body-font-size-l, 18px);
+  }
+
+  .industry-tab-hotspot-num { display: inline; }
+  .industry-tab-hotspot-label,
+  .industry-tab-hotspot .industry-tab-hotspot-icon { display: none; }
+
+  .industry-tab-hotspot.is-open { outline: 3px solid var(--industry-accent); }
+
+  /* mobile keeps pins visible while a row is open */
+  .industry-tab-media.has-popup .industry-tab-hotspot { opacity: 1; pointer-events: auto; }
+
+  .industry-tab-portfolio-wrap {
+    position: static;
+    padding: 20px clamp(16px, 5vw, 24px);
+    text-align: center;
+  }
+
+  a.industry-tab-portfolio.btn { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .industry-tab-media.is-zooming .industry-tab-bg img,
+  .industry-tab-card.is-popup { animation: none; }
+  .industry-tab-hotspot,
+  .industry-tab-chevron { transition: none; }
+}

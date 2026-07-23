@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>industry-tab</title>
+<style>body{font-family:-apple-system,sans-serif;max-width:900px;margin:2em auto;padding:0 1em;} .note{color:#666;font-size:0.9em;border-left:3px solid #ccc;padding-left:1em;} th{background:#f4f4f4;}</style>
+</head><body>
+<p class="note">PASTE-READY: select everything BELOW this line (from the H1 down), copy, and paste into the DA doc. Do not include this note.</p>
+<p class="note">ONE BLOCK = ONE TAB. Author one <b>industry-tab</b> block per industry; consecutive blocks are auto-grouped into a single tabbed component (the tab strip). Duplicate the table below for each industry and change its contents.</p>
+<p class="note">ROW MEANINGS (detected by content, so order is flexible):<br>
+&nbsp;• <b>Tab label + background</b> — a row of <i>[label]&nbsp;|&nbsp;[background images]</i>. The background cell holds up to THREE images: the desktop <b>front</b> layer, the desktop <b>back</b> layer (front is overlaid on back), and a single <b>mobile</b> image with the numbers baked in. Set each image's <b>alt text</b> to end in <code>front</code>, <code>back</code>, or <code>mobile</code> (filenames are hashed on upload, so alt is the reliable signal); if untagged, the block uses the order front, back, mobile. One image also works (used everywhere).<br>
+&nbsp;• <b>Portfolio CTA</b> — a row containing a single link (the "Browse Complete … Portfolio" button).<br>
+&nbsp;• <b>Hotspot</b> — a row of <i>[label]&nbsp;|&nbsp;[x%, y%]&nbsp;|&nbsp;[popup image]&nbsp;|&nbsp;[popup description]&nbsp;|&nbsp;[popup link]</i>. The <i>x%, y%</i> is where the toggle sits on the desktop image (percent from left, from top). Add one hotspot row per toggle. On mobile the toggles come from the baked-in image + the accordion, so positions are desktop-only. Replace the placeholder images with your own uploads.</p>
+<hr>
+<h1>industry-tab</h1>
+<table border="1" style="border-collapse:collapse; margin:1.5em 0; width:100%;">
+  <tr><td colspan="5" style="background:#e8f0fe; font-weight:bold; padding:8px;">industry-tab</td></tr>
+  <tr>
+    <td colspan="2" style="padding:8px; vertical-align:top;">Aerospace &amp; Defense</td>
+    <td colspan="3" style="padding:8px; vertical-align:top;">
+      <img src="https://picsum.photos/id/1015/1200/660" alt="aerospace defense front"><br>
+      <img src="https://picsum.photos/id/1036/1200/660" alt="aerospace defense back"><br>
+      <img src="https://picsum.photos/id/1002/800/1000" alt="aerospace defense mobile">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="5" style="padding:8px; vertical-align:top;"><a href="/en/applications/aerospace-defense.html">Browse Complete Aerospace and Defense Solutions Portfolio</a></td>
+  </tr>
+  <tr>
+    <td style="padding:8px; vertical-align:top;">Space Technology</td>
+    <td style="padding:8px; vertical-align:top;">62%, 30%</td>
+    <td style="padding:8px; vertical-align:top;"><img src="https://picsum.photos/id/1002/640/360" alt="Space Technology"></td>
+    <td style="padding:8px; vertical-align:top;">Superior beamforming, RF and microwave, data conversion, precision linear, and power systems for LEO, GEO, and beyond.</td>
+    <td style="padding:8px; vertical-align:top;"><a href="/en/applications/space.html">Explore Solutions</a></td>
+  </tr>
+  <tr>
+    <td style="padding:8px; vertical-align:top;">Avionics</td>
+    <td style="padding:8px; vertical-align:top;">28%, 40%</td>
+    <td style="padding:8px; vertical-align:top;"><img src="https://picsum.photos/id/1080/640/360" alt="Avionics"></td>
+    <td style="padding:8px; vertical-align:top;">High-reliability signal chain and power for cockpit and flight-control systems.</td>
+    <td style="padding:8px; vertical-align:top;"><a href="/en/applications/avionics.html">Explore Solutions</a></td>
+  </tr>
+  <tr>
+    <td style="padding:8px; vertical-align:top;">Radar</td>
+    <td style="padding:8px; vertical-align:top;">20%, 68%</td>
+    <td style="padding:8px; vertical-align:top;"><img src="https://picsum.photos/id/1063/640/360" alt="Radar"></td>
+    <td style="padding:8px; vertical-align:top;">Wideband data converters and RF front ends for modern radar systems.</td>
+    <td style="padding:8px; vertical-align:top;"><a href="/en/applications/radar.html">Explore Solutions</a></td>
+  </tr>
+  <tr>
+    <td style="padding:8px; vertical-align:top;">MilComm</td>
+    <td style="padding:8px; vertical-align:top;">48%, 65%</td>
+    <td style="padding:8px; vertical-align:top;"><img src="https://picsum.photos/id/1069/640/360" alt="MilComm"></td>
+    <td style="padding:8px; vertical-align:top;">Secure, resilient tactical communications solutions.</td>
+    <td style="padding:8px; vertical-align:top;"><a href="/en/applications/milcomm.html">Explore Solutions</a></td>
+  </tr>
+</table>
+
+</body></html>

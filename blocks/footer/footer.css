@@ -1,57 +1,259 @@
+/* Footer — analog.com rebuild: four columns (logo, About, Find Help, myAnalog),
+   a utility row of account + locale with social icons opposite, then a legal bar */
+
 footer {
-  a {
-    text-decoration: none;
-  }
-
-  .footer-content {
-    max-width: var(--grid-container-width);
-    margin: 48px auto;
-    font-size: 14px;
-  }
-
-  .section-legal ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .section-copyright p {
-    margin: 0;
-  }
-
-  .section {
-    .default-content {
-      max-width: initial;
-      margin: initial;
-    }
-  }
+  display: block;
+  color-scheme: dark;
+  background: #0d1622;
+  color: #fff;
+  font-family: var(--font-family); /* Inter */
 }
 
-@media (width >= 900px) {
-  footer {
-    margin: 0;
+footer a { color: #fff; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer ul { list-style: none; margin: 0; padding: 0; }
+footer li { margin: 0; }
+footer p { margin: 0; }
 
-    .section-legal {
-      display: flex;
-      justify-content: end;
-      gap: var(--spacing-xl);
-      margin-bottom: 24px;
+footer .footer-content {
+  max-width: var(--grid-container-width);
+  margin: 0 auto;
+  padding: 56px 0 28px;
+}
 
-      ul {
-        display: flex;
-        justify-content: end;
-        gap: var(--spacing-xl);
-      }
+/* ---------- Column grid ---------- */
+.footer-columns-list {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.9fr) repeat(3, 1.1fr);
+  column-gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+}
 
-      li {
-        margin: 0;
-      }
-    }
+/* ADI wordmark — its own column, no heading */
+.footer-brand { grid-column: 1; grid-row: 1; }
 
-    .section-copyright {
-      display: flex;
-      justify-content: end;
-      gap: var(--spacing-xl);
-    }
+.footer-brand-logo {
+  display: block;
+  width: 85px;
+  aspect-ratio: 85 / 24;
+  background-color: #fff;
+  -webkit-mask: var(--logo-src) no-repeat center / contain;
+  mask: var(--logo-src) no-repeat center / contain;
+}
+
+/* group heading, with the rule beneath it */
+.footer-col-heading {
+  font-family: var(--heading-font-family); /* Barlow */
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.3;
+  color: #fff;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgb(255 255 255 / 35%);
+}
+
+/* the heading doubles as the accordion trigger on mobile; inert above it */
+.footer-col-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  pointer-events: none;
+}
+
+.footer-col-chevron {
+  display: none;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  transition: transform 0.25s ease;
+}
+
+.footer-col-links > li { margin-bottom: 14px; }
+.footer-col-links a { font-size: 15px; line-height: 1.4; }
+
+/* ---------- myAnalog column ---------- */
+.footer-myanalog-text {
+  font-size: 15px;
+  line-height: 24px;
+  margin-bottom: 24px;
+  max-width: 34ch;
+}
+
+.footer-myanalog-cta {
+  display: inline-block;
+  background: #fff;
+  color: #0d1622;
+  font-size: 15px;
+  line-height: 1;
+  padding: 15px 24px;
+  border-radius: 2px;
+}
+
+.footer-myanalog-cta:hover {
+  background: #e6ebf2;
+  color: #0d1622;
+  text-decoration: none;
+}
+
+/* ---------- Utility row: account + locale, social opposite ---------- */
+.footer-account {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 64px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.footer-account-logo {
+  display: block;
+  width: 82px;
+  aspect-ratio: 82 / 16;
+  background-color: #fff;
+  -webkit-mask: var(--logo-src) no-repeat center / contain;
+  mask: var(--logo-src) no-repeat center / contain;
+}
+
+.footer-account-links li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.footer-account-link + .footer-account-link {
+  padding-left: 10px;
+  border-left: 1px solid rgb(255 255 255 / 45%);
+}
+
+.footer-locale {
+  grid-column: 2;
+  grid-row: 3;
+  margin-top: 14px;
+}
+
+.footer-locale p {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+}
+
+.footer-locale-lang,
+.footer-locale-currency { display: inline-flex; align-items: center; gap: 5px; }
+
+.footer-locale-lang::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: no-repeat center / contain
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>');
+}
+
+.footer-locale-currency::before { content: "$"; }
+
+/* Social icons sit at the far right, centred against the account block. They
+   span from column 3 so all six stay on one row. */
+.footer-social {
+  grid-column: 3 / -1;
+  grid-row: 2 / 4;
+  align-self: center;
+  justify-self: end;
+}
+
+.footer-social-links {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: clamp(18px, 2.6vw, 34px);
+}
+
+.footer-social-link {
+  display: block;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  color: #fff;
+}
+
+.footer-social-link:hover { opacity: 0.75; }
+.footer-social-link svg { width: 100%; height: 100%; display: block; }
+
+/* icon-only, but keep the name for assistive tech */
+.footer-social-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Legal + copyright bar ---------- */
+.footer-bottom {
+  border-top: 1px solid rgb(255 255 255 / 20%);
+  margin-top: 48px;
+  padding-top: 24px;
+}
+
+.footer-bottom .default-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.footer-legal,
+.footer-legal ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px clamp(20px, 3vw, 40px);
+}
+
+.footer-legal a { font-size: 14px; }
+.footer-copyright { font-size: 14px; color: #aab8cc; }
+
+/* ---------- Tablet / mobile ---------- */
+@media (max-width: 899px) {
+  .footer-columns-list { grid-template-columns: 1fr; row-gap: 36px; }
+
+  /* link columns collapse behind their heading */
+  .footer-col-toggle { pointer-events: auto; cursor: pointer; }
+  .footer-col-chevron { display: block; }
+  .footer-col.is-open .footer-col-chevron { transform: rotate(180deg); }
+
+  .footer-col:not(.footer-myanalog) .footer-col-links { display: none; }
+  .footer-col.is-open .footer-col-links { display: block; padding-top: 4px; }
+
+  /* let everything flow in source order once the 4-up grid collapses */
+  .footer-brand,
+  .footer-account,
+  .footer-locale,
+  .footer-social {
+    grid-column: auto;
+    grid-row: auto;
+    justify-self: start;
+    align-self: start;
+    margin-top: 0;
   }
+
+  .footer-brand,
+  .footer-account,
+  .footer-social { grid-column: 1 / -1; }
+}
+
+@media (max-width: 599px) {
+  footer .footer-content { padding: 36px 0 24px; }
+  .footer-columns-list { grid-template-columns: 1fr; row-gap: 30px; }
+  .footer-bottom .default-content { justify-content: flex-start; }
 }
