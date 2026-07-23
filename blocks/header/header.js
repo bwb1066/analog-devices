@@ -11,6 +11,33 @@ const ICON_SPARKLE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 
 const ICON_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>';
 const ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>';
 
+/* The sparkle action opens the Brand Concierge. The widget itself is a remote
+   module — nothing is fetched until the user hovers (prefetch) or clicks. */
+function wireConcierge(btn) {
+  if (!btn) return;
+  const glue = () => import('./concierge.js');
+  let warmed = false;
+  const warm = () => {
+    if (warmed) return;
+    warmed = true;
+    glue().then((m) => m.prefetch()).catch(() => { /* best-effort */ });
+  };
+  btn.addEventListener('pointerenter', warm);
+  btn.addEventListener('focus', warm);
+  btn.addEventListener('click', async () => {
+    btn.disabled = true;
+    try {
+      const { default: openConcierge } = await glue();
+      await openConcierge();
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('brand concierge failed to open', e);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+}
+
 /* Search, cart, and brand-concierge (sparkle) actions — not authored; injected at
    the right of the primary nav. */
 function buildPrimaryActions() {
@@ -29,6 +56,7 @@ function buildPrimaryActions() {
     btn.innerHTML = icon;
     wrap.append(btn);
   }
+  wireConcierge(wrap.querySelector('.nav-action-concierge'));
   return wrap;
 }
 
