@@ -9,7 +9,15 @@
   overflow: hidden;
   background: var(--hero-navy);
   font-family: var(--font-family);
+
+  /* hold the decorated height from the first paint, so the block doesn't
+     resize under everything below it once init runs */
+  min-height: 550px;
 }
+
+/* Until init moves them into .hero-track the rows are still direct children,
+   and their full-size images would otherwise set the block's height. */
+.main-hero-carousel > div:not(.hero-track) { display: none; }
 
 /* sliding track: slides in a row, translated horizontally */
 .main-hero-carousel .hero-track {

@@ -10,6 +10,10 @@
   background: #fff; /* full-bleed white */
 }
 
+/* the authored tables are consumed by init — keep them out of layout so their
+   full-size images never set the block's height */
+.what-we-do-cards table { display: none; }
+
 /* content constrained to the grid; the white bg stays full width */
 .what-we-do-cards .wwd-intro,
 .what-we-do-cards .wwd-cards {

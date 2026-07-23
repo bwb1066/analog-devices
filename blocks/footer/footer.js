@@ -5,7 +5,9 @@ const FOOTER_PATH = '/fragments/nav/footer';
 
 /* Brand icons, keyed by the authored link text. */
 const SOCIAL_ICONS = {
-  engineerzone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3.2 5.2h17.6v11.2H12l-5 3.6v-3.6H3.2z" stroke-linejoin="round"/><text x="12" y="12.6" text-anchor="middle" font-size="7" font-family="sans-serif" fill="currentColor" stroke="none">EZ</text></svg>',
+  // the EZ letters are drawn as paths, not <text> — rendered text inside the
+  // icon would count as a visible label and contradict the link's name
+  engineerzone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3.2 5.2h17.6v11.2H12l-5 3.6v-3.6H3.2z" stroke-linejoin="round"/><g stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.1 8.7H7.9v4.6h3.2M7.9 11h2.6"/><path d="M12.9 8.7h4l-4 4.6h4"/></g></svg>',
   linkedin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3 9.75h4v11.25H3zM10 9.75h3.83v1.54h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V21h-4v-4.98c0-1.19-.02-2.72-1.65-2.72-1.66 0-1.91 1.3-1.91 2.64V21h-4z"/></svg>',
   instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg>',
   // evenodd so the play triangle punches a hole rather than filling over the body
