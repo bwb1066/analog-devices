@@ -319,8 +319,22 @@ function buildTabset(group) {
 
   const buttons = [];
   const panels = [];
+  const isBuilt = [];
+
+  /* Panels are only assembled when their tab is first shown — building all ten
+     up front costs ~500 DOM elements for content nobody has asked for yet. */
+  const ensurePanel = (idx) => {
+    if (isBuilt[idx]) return panels[idx];
+    const panel = buildPanel(tabs[idx], idx);
+    panel.hidden = panels[idx].hidden;
+    panels[idx].replaceWith(panel);
+    panels[idx] = panel;
+    isBuilt[idx] = true;
+    return panel;
+  };
 
   const activate = (idx) => {
+    ensurePanel(idx);
     buttons.forEach((b, i) => {
       const active = i === idx;
       b.classList.toggle('is-active', active);
@@ -367,7 +381,12 @@ function buildTabset(group) {
     opt.textContent = tab.label;
     select.append(opt);
 
-    const panel = buildPanel(tab, idx);
+    // placeholder; ensurePanel swaps in the real panel on first activation
+    const panel = document.createElement('div');
+    panel.className = 'industry-tab-panel';
+    panel.id = `industry-panel-${idx}`;
+    panel.setAttribute('role', 'tabpanel');
+    panel.setAttribute('aria-labelledby', `industry-tab-${idx}`);
     panel.hidden = idx !== initial;
     panels.push(panel);
     panelStack.append(panel);
@@ -397,7 +416,9 @@ function buildTabset(group) {
   first.replaceWith(root);
   group.slice(1).forEach((b) => b.remove());
 
-  requestAnimationFrame(() => activate(initial));
+  // Synchronous, not rAF: a page loaded in a background tab never gets a frame,
+  // which would leave the opening tab's panel empty.
+  activate(initial);
 }
 
 export default function init(el) {

@@ -8,6 +8,7 @@ header.header {
   --nav-secondary: rgb(51 51 51);  /* secondary text */
   --nav-line: var(--color-gray-200, #d3d3d3);
   --nav-pad: clamp(16px, 4vw, 48px);
+  --nav-edge: 15%;                 /* both strips span the 15%–85% band */
   --nav-font: barlow, arial, sans-serif;
 
   display: block;
@@ -32,12 +33,20 @@ header.header .breadcrumbs { display: none; }
 /* ---------------- Utility nav (top strip, flat inline) ---------------- */
 .header .utility-nav { background: var(--util-bg); }
 
+/* the section wrapper's grid max-width would pull the right edge in past 85% */
+.header .utility-nav > .default-content {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
 .header .utility-nav-list {
+  box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 14px;
-  padding: 6px var(--nav-pad);
+  padding: 6px var(--nav-edge);
   font-family: arial, sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -94,16 +103,22 @@ header.header .breadcrumbs { display: none; }
 }
 
 .header .primary-nav > .default-content {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   gap: clamp(16px, 3vw, 40px);
-  padding: 0 var(--nav-pad) 0 calc(var(--nav-pad) + 90px);
+  padding: 0 var(--nav-edge);
+  width: 100%;
   max-width: initial;
   margin: 0;
 }
 
-/* brand / logo (authored SVG, recolored to brand blue via mask, at 70%) */
-.header .primary-nav > .default-content > p.brand { flex: none; line-height: 0; }
+/* brand / logo (authored SVG, recolored to brand blue via mask, at 70%)
+   — takes the first 15% of the band; the nav and actions fill the other 85% */
+.header .primary-nav > .default-content > p.brand {
+  flex: 0 0 15%;
+  line-height: 0;
+}
 
 .header .brand-logo {
   display: inline-block;
@@ -123,8 +138,7 @@ header.header .breadcrumbs { display: none; }
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: clamp(10px, 1.6vw, 26px);
-  margin-left: 25px;
+  gap: clamp(6px, 1.15vw, 34px);
 }
 
 .header .primary-nav-list > li { position: static; }
@@ -237,11 +251,22 @@ header.header .breadcrumbs { display: none; }
 .header .primary-nav-list .has-panel > ul ul { padding-left: 12px; margin: 4px 0 10px; }
 .header .primary-nav-list .has-panel > ul ul p { font-weight: 600; }
 
+/* The 15% inset only leaves room for all nine nav items from ~1800px up (the
+   items need 652px + gaps, and the band yields 0.595W - 232). Below that the
+   band widens — both strips together, so the right edges stay aligned — and the
+   logo takes only its own width. */
+@media (max-width: 1799px) {
+  header.header { --nav-edge: 5%; }
+  .header .primary-nav > .default-content > p.brand { flex: 0 0 auto; }
+}
+
 /* the hamburger only exists below the mobile breakpoint */
 .header .nav-toggle { display: none; }
 
-/* ---------------- Mobile ---------------- */
-@media (max-width: 899px) {
+/* ---------------- Mobile / tablet ----------------
+   Below ~1200px the nine nav items can no longer sit on one row at any sane
+   inset, so the bar switches to the hamburger treatment rather than wrapping. */
+@media (max-width: 1199px) {
   /* Compact bar: hamburger left, logo centred, search + cart right. The utility
      strip and the concierge action move into the panel's territory / drop out. */
   .header .utility-nav { display: none; }

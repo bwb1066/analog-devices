@@ -40,7 +40,9 @@ export default function init(el) {
     if (slides.length > 1 && content) {
       const dots = document.createElement('div');
       dots.className = 'hero-dots';
-      dots.setAttribute('role', 'tablist');
+      // a group of controls, not a tablist — plain buttons aren't valid tabs
+      dots.setAttribute('role', 'group');
+      dots.setAttribute('aria-label', 'Choose a slide');
       slides.forEach((_, j) => {
         const dot = document.createElement('button');
         dot.type = 'button';

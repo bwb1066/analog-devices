@@ -145,7 +145,15 @@ function decorateUtility(section) {
       li.classList.add('util-brand');
       const a = li.querySelector('a');
       const span = maskedLogo(img, 'util-brand-logo');
-      if (a) { a.replaceChildren(span); li.replaceChildren(a); } else li.replaceChildren(span);
+      // the logo is a mask, so the link would otherwise have no accessible name
+      const name = img.getAttribute('alt')?.trim() || 'myAnalog';
+      if (a) {
+        a.setAttribute('aria-label', name);
+        a.replaceChildren(span);
+        li.replaceChildren(a);
+      } else {
+        li.replaceChildren(span);
+      }
     } else if (/^eng/i.test(txt)) {
       li.classList.add('util-lang');
     } else if (/usd/i.test(txt)) {

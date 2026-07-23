@@ -119,6 +119,8 @@ function decorateSocial(col, heading, links) {
     a.innerHTML = `${icon}<span class="footer-social-label">${label}</span>`;
     a.setAttribute('aria-label', label);
     a.classList.add('footer-social-link');
+    // the EZ mark draws letters — hide the art so it can't contradict the name
+    a.querySelector('svg')?.setAttribute('aria-hidden', 'true');
   }
 }
 
