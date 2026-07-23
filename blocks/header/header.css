@@ -9,7 +9,7 @@ header.header {
   --nav-line: var(--color-gray-200, #d3d3d3);
   --nav-pad: clamp(16px, 4vw, 48px);
   --nav-edge: 15%;                 /* both strips span the 15%–85% band */
-  --nav-font: barlow, arial, sans-serif;
+  --nav-font: barlow, "Barlow Fallback", arial, sans-serif;
 
   display: block;
   height: auto;

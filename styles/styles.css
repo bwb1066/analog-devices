@@ -91,6 +91,26 @@
 @font-face { font-family: Barlow; font-style: normal; font-weight: 900; font-display: swap; src: url("/styles/fonts/barlow-900.woff2") format("woff2"); }
 @font-face { font-family: Barlow; font-style: italic; font-weight: 900; font-display: swap; src: url("/styles/fonts/barlow-900-italic.woff2") format("woff2"); }
 
+/* Metric-matched fallbacks: the Arial fallback is size-adjusted to occupy the
+   same box as the web font, so swapping in Inter/Barlow causes no layout shift. */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+  size-adjust: 107.12%;
+}
+
+@font-face {
+  font-family: "Barlow Fallback";
+  src: local("Arial");
+  ascent-override: 96.36%;
+  descent-override: 27.6%;
+  line-gap-override: 0%;
+  size-adjust: 105.65%;
+}
+
 :root {
   /* grid */
   --grid-container-width: 83.4%;
@@ -203,9 +223,9 @@
   --color-background: light-dark(var(--color-light), var(--color-dark));
   --color-shaded: light-dark(#f9f9f9, #111);
 
-  /* fonts — Barlow for headings, Inter for body (Arial is the documented fallback) */
-  --font-family: inter, arial, sans-serif;
-  --heading-font-family: barlow, arial, sans-serif;
+  /* fonts — Barlow for headings, Inter for body (metric-matched Arial fallback) */
+  --font-family: inter, "Inter Fallback", arial, sans-serif;
+  --heading-font-family: barlow, "Barlow Fallback", arial, sans-serif;
 
   /* headings */
   --heading-font-size-xxl: 32.44px;
