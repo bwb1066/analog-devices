@@ -8,13 +8,18 @@
  * passed explicitly as `widgetBase` for it to resolve the stylesheet against.
  */
 
-const WIDGET_BASE = 'https://bwb1066.github.io/brand-concierge/widget/';
-const SITE_KEY = 'analog-devices';
+import { getMetadata } from '../../scripts/ak.js';
 
-// Public read-only credentials (anon key, no write access) — the same pair the
-// config UI ships with.
-const SUPABASE_URL = 'https://cyjquwhkmzyedkwuaffc.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5anF1d2hrbXp5ZWRrd3VhZmZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNjY4MjcsImV4cCI6MjA5MDY0MjgyN30.GkMBLXBZr9u34m4uI6ZR-2ZniLZD3RkjropjQw058k4';
+const WIDGET_BASE = 'https://bwb1066.github.io/brand-concierge/widget/';
+
+/* Which brand the concierge answers as, and where its config lives, come from
+   page metadata (concierge-site / concierge-url / concierge-key) so the block
+   can be retargeted from the sheet without a code change. The fallbacks below
+   are the values this site shipped with, so a sheet missing those rows still
+   works. The anon key is public and read-only. */
+const SITE_KEY = getMetadata('concierge-site') || 'analog-devices';
+const SUPABASE_URL = getMetadata('concierge-url') || 'https://cyjquwhkmzyedkwuaffc.supabase.co';
+const SUPABASE_ANON_KEY = getMetadata('concierge-key') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5anF1d2hrbXp5ZWRrd3VhZmZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNjY4MjcsImV4cCI6MjA5MDY0MjgyN30.GkMBLXBZr9u34m4uI6ZR-2ZniLZD3RkjropjQw058k4';
 
 let loading = null;
 
