@@ -1,4 +1,4 @@
-import store from '../../scripts/commerce.js';
+import store, { setThumb } from '../../scripts/commerce.js';
 
 /**
  * quote-cart — the draft-quote (B2B cart) drawer. Placing this block on a page
@@ -32,7 +32,7 @@ function lineRow(line) {
   const lead = line.lead_time_days > 0
     ? `<span class="quote-cart-lead">${line.lead_time_days}-day lead</span>` : '';
   row.innerHTML = `
-    <img class="quote-cart-thumb" src="${line.image_url}" alt="" loading="lazy">
+    <img class="quote-cart-thumb" alt="" loading="lazy">
     <div class="quote-cart-info">
       <p class="quote-cart-name">${line.name}</p>
       <p class="quote-cart-meta">Item #${line.sku} · ${store.formatPrice(line.unit_price)} ea ${lead}</p>
@@ -52,6 +52,7 @@ function lineRow(line) {
     });
   });
   row.querySelector('.quote-cart-remove').addEventListener('click', () => store.removeLine(line.sku));
+  setThumb(row.querySelector('.quote-cart-thumb'), line.image_url);
   return row;
 }
 

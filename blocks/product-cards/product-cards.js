@@ -1,4 +1,4 @@
-import store from '../../scripts/commerce.js';
+import store, { setThumb } from '../../scripts/commerce.js';
 
 /**
  * product-cards — a grid of catalog products with specs, availability, and an
@@ -75,8 +75,11 @@ function buildCard(product) {
   const media = document.createElement('a');
   media.className = 'product-card-media';
   media.href = href;
-  media.innerHTML = `<img src="${product.image_url}" alt="" loading="lazy">`;
-  media.append(availabilityPill(product));
+  const img = document.createElement('img');
+  img.alt = '';
+  img.loading = 'lazy';
+  setThumb(img, product.image_url);
+  media.append(img, availabilityPill(product));
 
   const body = document.createElement('div');
   body.className = 'product-card-body';

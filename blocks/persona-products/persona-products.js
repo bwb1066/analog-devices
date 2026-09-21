@@ -1,4 +1,4 @@
-import store from '../../scripts/commerce.js';
+import store, { setThumb } from '../../scripts/commerce.js';
 import config from '../../scripts/aep-config.js';
 
 /**
@@ -48,8 +48,11 @@ function buildCard(product) {
   const media = document.createElement('a');
   media.className = 'persona-product-media';
   media.href = href;
-  media.innerHTML = product.image_url ? `<img src="${product.image_url}" alt="" loading="lazy">` : '';
-  media.append(pill(product));
+  const img = document.createElement('img');
+  img.alt = '';
+  img.loading = 'lazy';
+  setThumb(img, product.image_url);
+  media.append(img, pill(product));
 
   const body = document.createElement('div');
   body.className = 'persona-product-body';

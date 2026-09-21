@@ -49,6 +49,22 @@ const PDP_URL = getMetadata('commerce-pdp') || '/drafts/pdp';
 const listeners = new Set();
 let currentBuyer = null; // LOCAL: full object; REMOTE: { key }
 
+// Neutral IC-chip thumbnail for catalog rows with no image (or a broken URL) —
+// avoids the browser's broken-image glyph. Blocks use setThumb() below.
+// eslint-disable-next-line max-len
+export const PLACEHOLDER_IMG = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48"><rect width="64" height="48" fill="#eef2f7"/><g fill="none" stroke="#9db3cc" stroke-width="2"><rect x="23" y="16" width="18" height="16" rx="2"/><path d="M23 20h-4M23 24h-4M23 28h-4M41 20h4M41 24h4M41 28h4M28 16v-4M36 16v-4M28 32v4M36 32v4"/></g></svg>')}`;
+
+/**
+ * Point an <img> at the product image, falling back to the placeholder when the
+ * URL is empty or fails to load. Call after the element exists.
+ * @param {HTMLImageElement} img
+ * @param {string} [url]
+ */
+export function setThumb(img, url) {
+  img.src = url || PLACEHOLDER_IMG;
+  img.addEventListener('error', () => { img.src = PLACEHOLDER_IMG; }, { once: true });
+}
+
 // ── Pure helpers (shared) ────────────────────────────────────────────────
 
 function formatPrice(n, currency = 'USD') {
