@@ -50,9 +50,19 @@ export default {
     },
   ],
 
-  // No B2B contract-account / commerce concept on this site — hides the demo
-  // panel's Identity section entirely.
-  demoPersonas: [],
+  // "Log in as" demo identity for the demo panel. Toggling it fires an
+  // identity.authenticatedState event and calls window.brandCommerce.useBuyer(id).
+  // `id` is the email the commerce_buyers row is keyed on (site_key+email), so
+  // contract pricing (price_book) and the export-controlled entitlement resolve
+  // server-side. See the commerce_buyers seed run for analog-devices.
+  demoPersonas: [
+    {
+      id: 'buyer@aero-primecontractor.com',
+      label: 'Aerospace Prime Contractor',
+      note: 'contract pricing + export-controlled access',
+      extra: { accountType: 'contract', segment: 'aerospace-defense' },
+    },
+  ],
 
   // Track the commerce store's add-to-quote as an AEP signal (both the
   // storefront blocks and the concierge add-to-quote bridge write one quote via
