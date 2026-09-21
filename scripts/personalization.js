@@ -90,6 +90,15 @@ function defaultEventType(source) {
   return source === 'content' ? 'web.webpagedetails.pageViews' : 'experience.chat.interaction';
 }
 
+// Broadcast an audience change on the same event contract the demo panel uses,
+// so on-page blocks (e.g. persona-articles) re-render when browsing signals —
+// not just a manual demo-panel switch — shift the leading persona.
+function announce() {
+  document.dispatchEvent(new CustomEvent('p13n:change', {
+    detail: { audience: window[AUD_GLOBAL] || '' },
+  }));
+}
+
 // Bump the session tally (skipping the neutral 'default') and promote the
 // leading audience unless a demo-panel override is active. Returns the
 // previous leading audience so callers can detect a real change.
@@ -109,6 +118,7 @@ function bumpTally(audience) {
   } catch (e) { /* private mode */ }
   if (!overridden) {
     window[AUD_GLOBAL] = leadingAudience(tally) || window[AUD_GLOBAL];
+    if (window[AUD_GLOBAL] !== before) announce();
   }
   return before;
 }
@@ -141,10 +151,14 @@ function applyStoredAudience() {
   } catch (e) { /* private mode */ }
   if (override) {
     window[AUD_GLOBAL] = override;
+    announce();
     return;
   }
   const lead = leadingAudience(readTally());
-  if (lead) window[AUD_GLOBAL] = lead;
+  if (lead) {
+    window[AUD_GLOBAL] = lead;
+    announce();
+  }
 }
 
 function wireChat() {
