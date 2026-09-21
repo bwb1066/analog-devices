@@ -13,7 +13,6 @@ import config from '../../scripts/aep-config.js';
  */
 
 const AUD_GLOBAL = config.audienceGlobal || 'aepAudience';
-const LABELS = Object.fromEntries((config.audiences || []).map((a) => [a.key, a.label]));
 
 function readGroups(block) {
   const groups = {};
@@ -59,12 +58,10 @@ export default function decorate(block) {
   block.replaceChildren();
   const head = document.createElement('div');
   head.className = 'persona-articles-head';
-  const eyebrow = document.createElement('p');
-  eyebrow.className = 'persona-articles-eyebrow';
   const title = document.createElement('h2');
   title.className = 'persona-articles-title';
   title.textContent = 'Insights & thought leadership';
-  head.append(eyebrow, title);
+  head.append(title);
   const grid = document.createElement('div');
   grid.className = 'persona-articles-grid';
   block.append(head, grid);
@@ -77,8 +74,6 @@ export default function decorate(block) {
 
   const render = (aud) => {
     const key = pickKey(aud);
-    const label = LABELS[key];
-    eyebrow.textContent = label ? `Personalized for ${label}` : 'For every engineer';
     grid.replaceChildren(...groups[key].map(cardEl));
     block.dataset.audience = key;
     // brief highlight so the swap is visible when the persona changes

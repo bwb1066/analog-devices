@@ -1,26 +1,24 @@
+/* Full-width light band behind the panel (the section is otherwise transparent,
+   which shows the dark body background under color-scheme: light dark). */
+main .section:has(.persona-articles) {
+  background: #f4f7fb;
+}
+
 .persona-articles {
-  padding: 48px 0;
+  max-width: var(--grid-container-width, 1200px);
+  margin-inline: auto;
+  padding-block: clamp(40px, 5vw, 64px);
 }
 
 .persona-articles-head {
   margin-bottom: 24px;
 }
 
-.persona-articles-eyebrow {
-  margin: 0 0 4px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #0067b9;
-  transition: color 0.3s ease;
-}
-
 .persona-articles-title {
   margin: 0;
-  font-size: 28px;
+  font-size: clamp(24px, 3vw, 30px);
   line-height: 1.2;
-  color: var(--color-gray-900, #1b1b1b);
+  color: #131313;
 }
 
 .persona-articles-grid {
