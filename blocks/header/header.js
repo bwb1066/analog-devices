@@ -1,5 +1,6 @@
 import { getConfig, getMetadata } from '../../scripts/ak.js';
 import { loadFragment } from '../fragment/fragment.js';
+import store from '../../scripts/commerce.js';
 
 const { locale } = getConfig();
 
@@ -38,6 +39,24 @@ function wireConcierge(btn) {
   });
 }
 
+/* Add a live quote-count badge to the cart action and keep it in sync on every
+   page. The quote-cart block (only on commerce pages) wires the click to open
+   its drawer; commerce.js resolves the quote on load and pushes updates —
+   Realtime, cross-tab, and concierge add-to-quote — through store.subscribe. */
+function wireCart(btn) {
+  if (!btn) return;
+  const badge = document.createElement('span');
+  badge.className = 'nav-cart-count';
+  btn.append(badge);
+  const sync = (quote) => {
+    const count = store.quoteCount(quote);
+    badge.textContent = count;
+    btn.classList.toggle('has-items', count > 0);
+  };
+  sync(store.getQuote());
+  store.subscribe(sync);
+}
+
 /* Search, cart, and brand-concierge (sparkle) actions — not authored; injected at
    the right of the primary nav. */
 function buildPrimaryActions() {
@@ -57,6 +76,7 @@ function buildPrimaryActions() {
     wrap.append(btn);
   }
   wireConcierge(wrap.querySelector('.nav-action-concierge'));
+  wireCart(wrap.querySelector('.nav-action-cart'));
   return wrap;
 }
 
@@ -110,12 +130,12 @@ function closeAll(root) {
 }
 
 function wireDropdowns(topList, root) {
-  for (const li of topList.querySelectorAll(':scope > li')) {
+  topList.querySelectorAll(':scope > li').forEach((li) => {
     const panel = li.querySelector(':scope > ul');
-    if (!panel) continue; // leaf link — let it navigate
+    if (!panel) return; // leaf link — let it navigate
     li.classList.add('has-panel');
     const trigger = li.querySelector(':scope > p, :scope > a');
-    if (!trigger) continue;
+    if (!trigger) return;
     const clickable = trigger.matches('a') ? trigger : (trigger.querySelector('a') || trigger);
     clickable.setAttribute('role', 'button');
     clickable.setAttribute('aria-expanded', 'false');
@@ -126,7 +146,7 @@ function wireDropdowns(topList, root) {
       li.classList.toggle('is-open', !open);
       clickable.setAttribute('aria-expanded', String(!open));
     });
-  }
+  });
 }
 
 function decorateNavSection(section, name, root) {
