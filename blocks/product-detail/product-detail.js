@@ -1,4 +1,4 @@
-import store from '../../scripts/commerce.js';
+import store, { setThumb } from '../../scripts/commerce.js';
 
 /**
  * product-detail — the interactive commerce panel for a single product: full
@@ -94,7 +94,7 @@ export default async function decorate(block) {
   if (product.restricted) {
     const flag = document.createElement('p');
     flag.className = 'product-detail-restricted';
-    flag.textContent = `${product.restriction || 'DEA controlled substance — DEA account and entitlement required'}. Shown because your entitlement is active.`;
+    flag.textContent = `${product.restriction || 'Restricted item — account entitlement required'}. Shown because your entitlement is active.`;
     head.append(flag);
   }
 
@@ -147,7 +147,23 @@ export default async function decorate(block) {
   });
 
   buy.append(priceLine, avail, grid, controls);
-  panel.append(head, specSheet(product), buy);
+
+  // Left column: product image (placeholder when the catalog has none) + the
+  // spec sheet (omitted when a product carries no specs, so it isn't a stray rule).
+  const left = document.createElement('div');
+  left.className = 'product-detail-left';
+  const media = document.createElement('div');
+  media.className = 'product-detail-media';
+  const img = document.createElement('img');
+  img.alt = '';
+  img.loading = 'lazy';
+  setThumb(img, product.image_url);
+  media.append(img);
+  left.append(media);
+  const specs = specSheet(product);
+  if (specs.childElementCount) left.append(specs);
+
+  panel.append(head, left, buy);
   block.replaceChildren(panel);
   refresh();
 }

@@ -1,3 +1,16 @@
+/* Force a light surface: the site runs color-scheme: light dark, so a
+   transparent section shows the dark body background and the buy panel's
+   inherited text renders white-on-white. Pin light + explicit dark ink. */
+main .section:has(.product-detail) {
+  background: #fff;
+  color-scheme: light;
+}
+
+.product-detail {
+  padding-block: clamp(32px, 4vw, 56px);
+  color: #1b1b1b;
+}
+
 .product-detail .product-detail-inner {
   display: grid;
   gap: 28px;
@@ -5,6 +18,29 @@
   margin-inline: auto;
   padding-inline: 20px;
   box-sizing: border-box;
+}
+
+.product-detail .product-detail-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.product-detail .product-detail-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  padding: 20px;
+  border: 1px solid var(--color-gray-200, #d3d3d3);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.product-detail .product-detail-media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .product-detail .product-detail-eyebrow {
@@ -18,7 +54,8 @@
 
 .product-detail .product-detail-name {
   margin: 0 0 6px;
-  font-size: var(--heading-font-size-l);
+  font-size: var(--heading-font-size-l, 32px);
+  color: #131313;
 }
 
 .product-detail .product-detail-sku {
@@ -68,8 +105,10 @@
 .product-detail .product-detail-buy {
   padding: 20px;
   border: 1px solid #e6e6e6;
+  border-top: 4px solid #0067b9;
   border-radius: var(--rounded-sm, 3px);
-  background: var(--background-color, #fff);
+  background: #fff;
+  color: #1b1b1b;
 }
 
 .product-detail .product-detail-price {
@@ -77,7 +116,11 @@
   font-size: var(--body-font-size-s);
 }
 
-.product-detail .product-detail-price strong { font-size: var(--heading-font-size-m); }
+.product-detail .product-detail-price strong {
+  font-size: var(--heading-font-size-m, 24px);
+  color: #131313;
+}
+
 .product-detail .product-detail-price span { color: var(--dark-color, #505050); }
 
 .product-detail .product-detail-avail {
@@ -150,13 +193,13 @@
   font: inherit;
   font-weight: 700;
   color: #fff;
-  background: var(--cta-color, #d40000);
+  background: var(--cta-color, #0067b9);
   border: 0;
   border-radius: var(--rounded-sm, 3px);
   cursor: pointer;
 }
 
-.product-detail .product-detail-add:hover { background: var(--cta-color-hover, #e6b900); }
+.product-detail .product-detail-add:hover { background: var(--cta-color-hover, #00427a); }
 
 .product-detail .product-detail-add.is-added {
   background: #1a7f37;
