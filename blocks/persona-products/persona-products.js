@@ -1,5 +1,4 @@
 import store, { setThumb } from '../../scripts/commerce.js';
-import config from '../../scripts/aep-config.js';
 
 /**
  * persona-products — a commerce product rail that swaps its selection to match
@@ -7,11 +6,18 @@ import config from '../../scripts/aep-config.js';
  * buyer logs in. Reacts to `p13n:change` (fired on persona switch, browsing
  * signals, and demo-panel buyer toggles), re-querying window.brandCommerce.
  *
+ * Soft dependency on the AEP tracking skill: it reads window.aepAudience and
+ * listens for p13n:change, both of which simply never appear without it — so
+ * on a commerce-only site this renders the `default` selection and stays put.
+ *
  * Authoring: one row per persona — first cell the audience key (or `default`),
  * second cell a search query the commerce catalog is matched against.
  */
 
-const AUD_GLOBAL = config.audienceGlobal || 'aepAudience';
+// Matches personalization.js's default audience global. If the AEP config
+// overrides audienceGlobal, p13n:change events still carry the audience in
+// their detail (and fire once on load), so only a pre-event first paint uses this.
+const AUD_GLOBAL = 'aepAudience';
 const LIMIT = 4;
 
 function readGroups(block) {
