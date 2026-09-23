@@ -117,12 +117,13 @@ function decorateSocial(col, heading, links) {
   for (const a of [...links?.querySelectorAll('a') || []]) {
     const label = a.textContent.trim();
     const icon = iconFor(label);
-    if (!icon) continue;
-    a.innerHTML = `${icon}<span class="footer-social-label">${label}</span>`;
-    a.setAttribute('aria-label', label);
-    a.classList.add('footer-social-link');
-    // the EZ mark draws letters — hide the art so it can't contradict the name
-    a.querySelector('svg')?.setAttribute('aria-hidden', 'true');
+    if (icon) {
+      a.innerHTML = `${icon}<span class="footer-social-label">${label}</span>`;
+      a.setAttribute('aria-label', label);
+      a.classList.add('footer-social-link');
+      // the EZ mark draws letters — hide the art so it can't contradict the name
+      a.querySelector('svg')?.setAttribute('aria-hidden', 'true');
+    }
   }
 }
 

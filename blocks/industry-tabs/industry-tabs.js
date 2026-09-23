@@ -64,7 +64,9 @@ function parseHotspot(cells, row) {
     && c.textContent.trim());
   const desc = (descCell || cells[3])?.textContent.trim() || '';
 
-  return { label, x: parseFloat(x), y: parseFloat(y), picture, desc, cta };
+  return {
+    label, x: parseFloat(x), y: parseFloat(y), picture, desc, cta,
+  };
 }
 
 /* Sort background pictures into desktop back/front layers + a mobile image.
@@ -226,7 +228,10 @@ function buildPanel(tab, idx) {
   };
 
   const open = (i, returnFocusEl) => {
-    if (openIdx === i) { closeOpen(); return; }
+    if (openIdx === i) {
+      closeOpen();
+      return;
+    }
     closeOpen();
     openIdx = i;
     const hotspot = tab.hotspots[i];
@@ -348,7 +353,7 @@ function buildTabset(group) {
     if (select.selectedIndex !== idx) select.selectedIndex = idx;
     const media = panels[idx].querySelector('.industry-tab-media');
     media.classList.remove('is-zooming');
-    void media.offsetWidth; // reflow so the zoom animation restarts each time
+    media.getBoundingClientRect(); // reflow so the zoom animation restarts each time
     media.classList.add('is-zooming');
   };
 

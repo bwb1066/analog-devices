@@ -49,7 +49,10 @@ export default function init(el) {
         dot.className = 'hero-dot';
         dot.setAttribute('aria-label', `Go to slide ${j + 1}`);
         if (j === i) dot.classList.add('is-active');
-        dot.addEventListener('click', () => { go(j); restart(); });
+        dot.addEventListener('click', () => {
+          go(j);
+          restart();
+        });
         dots.append(dot);
       });
       content.append(dots);
