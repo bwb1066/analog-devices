@@ -125,8 +125,10 @@
   --spacing-s: 8px;
   --spacing-xs: 4px;
 
-  /* color schemes */
-  color-scheme: light dark;
+  /* color schemes — pinned to light: the brand chrome (header/footer) is light
+     and content is authored for a light surface; sections that need to be dark
+     (utility bar, industry-tabs navy) set their own background explicitly. */
+  color-scheme: light;
 
   /* color tokens */
   --color-gray-100: #f1f1f1;
