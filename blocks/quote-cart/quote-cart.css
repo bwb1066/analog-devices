@@ -198,13 +198,13 @@
   font: inherit;
   font-weight: 700;
   color: #fff;
-  background: var(--cta-color, #d40000);
+  background: var(--cta-color, #0067b9);
   border: 0;
   border-radius: var(--rounded-sm, 3px);
   cursor: pointer;
 }
 
-.quote-cart-submit:hover { background: var(--cta-color-hover, #e6b900); }
+.quote-cart-submit:hover { background: var(--cta-color-hover, #00427a); }
 
 .quote-cart-terms {
   margin: 10px 0 0;
