@@ -1,0 +1,100 @@
+/* Cards — ADI style: white card, 4px ADI-blue top rule, gray hairline border */
+.cards {
+  --cards-blue: #0067b9;
+  --cards-blue-dark: #00427a;
+
+  max-width: var(--grid-container-width);
+  margin: 32px auto;
+}
+
+.cards > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.cards > ul > li {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border: 1px solid var(--color-gray-200);
+  border-top: 4px solid var(--cards-blue);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  color: var(--color-gray-900);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.cards > ul > li:hover {
+  box-shadow: 0 4px 14px rgb(0 0 0 / 10%);
+  transform: translateY(-2px);
+}
+
+.cards .cards-card-image {
+  line-height: 0;
+  background: var(--color-gray-100);
+}
+
+.cards .cards-card-image img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.cards .cards-card-body {
+  flex: 1;
+  padding: 16px 20px 20px;
+  font-size: var(--body-font-size-s);
+  line-height: 1.5;
+  color: var(--color-gray-700);
+}
+
+.cards .cards-card-body > :first-child {
+  margin-top: 0;
+}
+
+.cards .cards-card-body > :last-child {
+  margin-bottom: 0;
+}
+
+.cards .cards-card-body strong,
+.cards .cards-card-body h2,
+.cards .cards-card-body h3,
+.cards .cards-card-body h4 {
+  display: block;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xs);
+  font-weight: 600;
+  line-height: var(--heading-line-height);
+  color: var(--color-gray-900);
+}
+
+.cards .cards-card-body a {
+  color: var(--cards-blue);
+  font-weight: 600;
+}
+
+.cards .cards-card-body a:hover {
+  color: var(--cards-blue-dark);
+}
+
+/* no-images variant: cards with only a body get a tinted panel */
+.cards > ul > li:not(:has(.cards-card-image)) {
+  background: #f5f8fc;
+}
+
+@media (width >= 600px) {
+  .cards > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .cards > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

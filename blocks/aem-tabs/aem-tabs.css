@@ -1,0 +1,66 @@
+/* Tabs — ADI style: underline tab bar, ADI-blue active indicator */
+.aem-tabs {
+  --tabs-blue: #0067b9;
+
+  max-width: var(--grid-container-width);
+  margin: 32px auto;
+}
+
+.aem-tabs .aem-tabs-list {
+  display: flex;
+  gap: 4px;
+  max-width: 100%;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--color-gray-200);
+  font-size: var(--body-font-size-s);
+}
+
+@media (width >= 900px) {
+  .aem-tabs .aem-tabs-list {
+    font-size: var(--body-font-size-m);
+  }
+}
+
+.aem-tabs .aem-tabs-list button {
+  flex: 0 0 max-content;
+  margin: 0 0 -1px;
+  padding: 12px 20px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-gray-600);
+  font-family: var(--heading-font-family);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+.aem-tabs .aem-tabs-list button p {
+  margin: 0;
+}
+
+.aem-tabs .aem-tabs-list button:hover {
+  color: var(--color-gray-900);
+  background-color: var(--color-gray-100);
+}
+
+.aem-tabs .aem-tabs-list button[aria-selected='true'] {
+  color: var(--tabs-blue);
+  border-bottom-color: var(--tabs-blue);
+  background: transparent;
+  cursor: default;
+}
+
+.aem-tabs .aem-tabs-panel {
+  padding: 24px 4px;
+  overflow: auto;
+}
+
+.aem-tabs .aem-tabs-panel > :first-child {
+  margin-top: 0;
+}
+
+.aem-tabs .aem-tabs-panel[aria-hidden='true'] {
+  display: none;
+}

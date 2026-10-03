@@ -93,12 +93,17 @@ function getRequestPath(a) {
   return a.href;
 }
 
-export default async function init(a) {
+export default async function init(el) {
+  // Called either with a fragment link, or with an authored `fragment` block
+  // (a table whose cell holds the link) — in the latter case replace the block.
+  const isBlock = el.tagName !== 'A';
+  const a = isBlock ? el.querySelector('a') : el;
+  if (!a) return;
   const path = getRequestPath(a);
 
   const fragment = await loadFragment(path);
   if (fragment) {
-    const elToReplace = getReplaceEl(a);
+    const elToReplace = isBlock ? el : getReplaceEl(a);
     const sections = fragment.querySelectorAll(':scope > .section');
     const children = sections.length === 1
       ? fragment.querySelectorAll(':scope > *')
