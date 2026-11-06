@@ -1,7 +1,8 @@
-/* Button — ADI-blue CTA, as on analog.com product pages ("Data Sheet") */
+/* Button — ADI CTA row, as on analog.com product pages ("Data Sheet") */
 .button {
-  --button-blue: #2b66b8;
-  --button-blue-hover: #1f4f94;
+  --button-blue: #0067b9;
+  --button-blue-hover: #00508f;
+  --button-ink: #101820;
 
   max-width: var(--grid-container-width);
   margin: 16px auto 24px;
@@ -16,23 +17,22 @@
 .button .button-link {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
-  min-height: 52px;
-  padding: 12px 24px;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px 0 8px;
   box-sizing: border-box;
-  border: 2px solid var(--button-blue);
-  border-radius: 6px;
+  border: 1px solid var(--button-blue);
+  border-radius: 4px;
   background: var(--button-blue);
   color: #fff;
   font-family: var(--font-family);
-  font-size: var(--body-font-size-l);
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 20px;
   text-decoration: none;
   transition: background-color 0.2s, border-color 0.2s;
 
-  &:hover,
-  &:focus-visible {
+  &:hover {
     background: var(--button-blue-hover);
     border-color: var(--button-blue-hover);
   }
@@ -44,20 +44,91 @@
 
   .icon {
     flex: none;
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     fill: currentcolor;
   }
 }
 
-/* later buttons on the row are outlined (secondary) */
+/* later buttons on the row are ghost buttons ("Product Selection Table") */
 .button .button-link + .button-link {
+  border-color: transparent;
   background: transparent;
-  color: var(--button-blue);
+  color: var(--button-ink);
 
-  &:hover,
-  &:focus-visible {
-    background: var(--color-blue-100);
-    color: var(--button-blue-hover);
+  &:hover {
+    background: var(--color-gray-100);
+  }
+}
+
+/* ---------- product overview: title + badge, description, buttons ---------- */
+.section.product-overview {
+  padding-top: 40px;
+
+  > .default-content {
+    color: var(--button-ink);
+
+    > p {
+      margin: 0 0 16px;
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+
+  .product-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 28px;
+    margin: 0 0 12px;
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 40px;
+    }
+  }
+
+  .product-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 32px;
+    margin: 0;
+    padding: 0 12px 0 16px;
+    box-sizing: border-box;
+    border-left: 4px solid #0f7419;
+    background: #d5f7d8;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    strong {
+      font-weight: 500;
+    }
+
+    /* info icon */
+    &::after {
+      content: "";
+      flex: none;
+      width: 16px;
+      height: 16px;
+      background: currentcolor;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM11 7h2v2h-2V7zm0 4h2v6h-2v-6z'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+  }
+
+  .button {
+    margin: 0 auto 32px;
+  }
+}
+
+@media (width >= 900px) {
+  .section.product-overview .product-title h1 {
+    font-size: 40px;
+    line-height: 48px;
   }
 }
