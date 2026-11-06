@@ -1,0 +1,63 @@
+/* Button — ADI-blue CTA, as on analog.com product pages ("Data Sheet") */
+.button {
+  --button-blue: #2b66b8;
+  --button-blue-hover: #1f4f94;
+
+  max-width: var(--grid-container-width);
+  margin: 16px auto 24px;
+}
+
+.button .button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.button .button-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 52px;
+  padding: 12px 24px;
+  box-sizing: border-box;
+  border: 2px solid var(--button-blue);
+  border-radius: 6px;
+  background: var(--button-blue);
+  color: #fff;
+  font-family: var(--font-family);
+  font-size: var(--body-font-size-l);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--button-blue-hover);
+    border-color: var(--button-blue-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--button-blue);
+    outline-offset: 2px;
+  }
+
+  .icon {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    fill: currentcolor;
+  }
+}
+
+/* later buttons on the row are outlined (secondary) */
+.button .button-link + .button-link {
+  background: transparent;
+  color: var(--button-blue);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--color-blue-100);
+    color: var(--button-blue-hover);
+  }
+}
