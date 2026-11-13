@@ -21,6 +21,7 @@ async function loadSidekick() {
   import('./utils/lazyhash.js');
   import('./utils/favicon.js');
   import('./utils/footer.js').then(({ default: footer }) => footer());
+  import('./utils/beacon.js').then(({ default: beacon }) => beacon());
 
   // Author facing tools
   if (ENV !== 'prod') {
